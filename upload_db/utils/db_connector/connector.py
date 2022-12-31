@@ -3,9 +3,7 @@ from abc import ABC, abstractmethod
 
 
 class Connector(ABC):
-    """
-    Base extractor from database. Describes base functional.
-    """
+    """Base extractor from database. Describes base functional."""
 
     @abstractmethod
     def _create_connection(self, *args, **kwargs):

@@ -1,22 +1,12 @@
 """This file describes the configuration of test scripts."""
 import os
 
-from pydantic import BaseSettings, Field, validator
-
-"""
-    - *dbname*: the database name
-    - *database*: the database name (only as keyword argument)
-    - *user*: user name used to authenticate
-    - *password*: password used to authenticate
-    - *host*: database host address (defaults to UNIX socket if not provided)
-    - *port*: connection port number (defaults to 5432 if not provided)
-"""
+from pydantic import BaseSettings, Field
 
 
 class DatabaseConfig(BaseSettings):
-    """
-    This class from configuration database connection (SQL database).
-    """
+    """This class from configuration database connection (SQL database)."""
+
     dbname: str = Field("movies_database", description="database table name.")
     user: str = Field("app", description="database user.")
     password: str = Field("123qwe", description="database password.")
@@ -26,15 +16,16 @@ class DatabaseConfig(BaseSettings):
 
 
 class ApplicationConfig(BaseSettings):
-    """
-    From configuration application.
-    """
+    """From configuration application."""
+
     application_name: str = Field("White656", description="application name.")
     persons_count: int = Field(100000, description="persons count.")
     page_size: int = Field(5000, description="page size.")
     database: DatabaseConfig = DatabaseConfig()
 
     class Config:
+        """Class configuration application config."""
+
         env_file = '.env'
         env_file_encoding = 'utf-8'
         env_nested_delimiter = '__'
