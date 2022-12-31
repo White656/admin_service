@@ -1,6 +1,6 @@
 """This file from descriptions of data loading class in postgresQL."""
-from example_usage.utils.db_connector.pg_connector import PostgresConnector
-from example_usage.utils.uploader.upload import BaseDatabaseUpload
+from upload_db.utils.db_connector.pg_connector import PostgresConnector
+from upload_db.utils.uploader.upload import BaseDatabaseUpload
 
 from psycopg2.extras import execute_batch
 
@@ -19,4 +19,4 @@ class PostgresUploader(BaseDatabaseUpload, PostgresConnector):
         """
         _cur = self.get_cursor
         execute_batch(_cur, query, params, page_size=page_size)
-        _cur.close()
+        self.get_connection.commit()

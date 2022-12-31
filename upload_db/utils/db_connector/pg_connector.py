@@ -4,8 +4,8 @@ from psycopg2._psycopg import cursor
 from psycopg2.extensions import connection as conn
 from psycopg2.extras import DictCursor
 
-from example_usage.core.config import DatabaseConfig
-from example_usage.utils.db_connector.connector import Connector
+from upload_db.core.config import DatabaseConfig
+from upload_db.utils.db_connector.connector import Connector
 
 
 class PostgresConnector(Connector):

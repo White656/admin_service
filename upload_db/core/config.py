@@ -24,13 +24,6 @@ class DatabaseConfig(BaseSettings):
     port: int = Field(5432, description="database port.")
     options: str = Field("-c search_path=content", description="custom options in dsn.")
 
-    @classmethod
-    @validator("user")
-    def custom_user_validator(cls, value):
-        if value == "kirillhorkov":
-            return "app"
-        return value
-
 
 class ApplicationConfig(BaseSettings):
     """
