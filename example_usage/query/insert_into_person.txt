@@ -1,0 +1,1 @@
+INSERT INTO person (id, full_name, created, modified) VALUES (%s, %s, %s, %s)
