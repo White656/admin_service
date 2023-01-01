@@ -5,9 +5,9 @@ from enum import Enum
 class QueryVariants(str, Enum):
     """This class from query variants."""
 
-    into_person = "insert_into_person.txt"
-    into_person_film_work = "insert_into_person_film_work.txt"
-    get_all_film_work = "get_all_film_work.txt"
+    into_person = 'insert_into_person.txt'
+    into_person_film_work = 'insert_into_person_film_work.txt'
+    get_all_film_work = 'get_all_film_work.txt'
 
     def __str__(self):
         return self.value
@@ -23,5 +23,5 @@ def get_query_from_file(variant: variants) -> str | None:
     :param variant: filename from current dir.
     :return: file date(some sql query).
     """
-    with open(f"query/{variant}", "r", encoding="utf-8") as file:
+    with open(f'query/{variant}', 'r', encoding='utf-8') as file:  # noqa: WPS305
         return file.read().replace('\n', ' ')

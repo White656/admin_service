@@ -35,7 +35,8 @@ def generate_date_from_person_film_fork_table() -> list[tuple]:
     for film_work_id in film_works_ids:
         for person_id in random.sample(persons_ids, 5):
             role = random.choice(roles)
-            data_from_upload.append((str(uuid.uuid4()), film_work_id, person_id, role, datetime.utcnow()))
+            data_from_upload.append((str(uuid.uuid4()), film_work_id,
+                                     person_id, role, datetime.utcnow()))
     return data_from_upload
 
 

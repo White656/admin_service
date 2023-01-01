@@ -47,3 +47,4 @@ created timestamp with time zone
 ALTER ROLE ALL SET search_path TO content,public;
 
 CREATE INDEX IF NOT EXISTS film_work_creation_date_idx ON content.film_work(creation_date);
+CREATE UNIQUE INDEX film_work_person_idx ON content.person_film_work (film_work_id, person_id);

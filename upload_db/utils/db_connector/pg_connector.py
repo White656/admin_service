@@ -77,7 +77,7 @@ class PostgresConnector(Connector):
         return self.get_connection.cursor()
 
     def __str__(self) -> str:
-        return f"is_connection: {True if self.__postgres_connection else False}"
+        return f'is_connection: {True if self.__postgres_connection else False}'  # noqa:WPS237, WPS305
 
     def __repr__(self):
-        return f"connection: {self.__postgres_connection}, dns: {self.__config}"
+        return f'connection: {self.__postgres_connection}, dns: {self.__config}'  # noqa:WPS237, WPS305

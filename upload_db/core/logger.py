@@ -1,6 +1,6 @@
 """This file settings logger in this application."""
 
-LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+LOG_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"  # noqa: Q000, WPS323
 log_default_handlers = ['console']
 
 logging = {
@@ -12,12 +12,12 @@ logging = {
         },
         'default': {
             '()': 'uvicorn.logging.DefaultFormatter',
-            'fmt': '%(levelprefix)s %(message)s',
+            'fmt': '%(levelprefix)s %(message)s',  # noqa: Q000, WPS323
             'use_colors': None,
         },
         'access': {
             '()': 'uvicorn.logging.AccessFormatter',
-            'fmt': "%(levelprefix)s %(client_addr)s - '%(request_line)s' %(status_code)s",
+            'fmt': "%(levelprefix)s %(client_addr)s - ' % (request_line)s' %(status_code)s",  # noqa: Q000, WPS323
         },
     },
     'handlers': {
