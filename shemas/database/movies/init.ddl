@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS content.film_work (
     title TEXT NOT NULL,
     description TEXT,
     creation_date DATE,
-    rating FLOAT,
+    rating FLOAT NOT NULL,
     type TEXT not null,
     created timestamp with time zone,
     modified timestamp with time zone
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS content.film_work (
 CREATE TABLE IF NOT EXISTS content.genre (
     id uuid PRIMARY KEY,
     name varchar(128) NOT NULL,
-    description TEXT NOT NULL,
+    description TEXT,
     created timestamp with time zone,
     modified timestamp with time zone
 

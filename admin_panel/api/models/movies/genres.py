@@ -16,3 +16,6 @@ class Genre(CreatedAndIdMixing):
         db_table = 'content\".\"genre'
         verbose_name = _('Genre')
         verbose_name_plural = _('Genres')
+
+    def __str__(self):
+        return self.name

@@ -1,1 +1,0 @@
-SELECT * FROM content.person_film_work;
