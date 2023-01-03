@@ -21,7 +21,7 @@ class CreatedMixing(models.Model):
 
     class Meta:  # noqa: D106, WPS306
         abstract = True
-        ordering = ['created_at']
+        ordering = ['created']
 
 
 class CreatedAndIdMixing(IdMixing, CreatedMixing):
@@ -29,4 +29,4 @@ class CreatedAndIdMixing(IdMixing, CreatedMixing):
 
     class Meta:  # noqa: D106, WPS306
         abstract = True
-        ordering = ['created_at']
+        ordering = ['created']

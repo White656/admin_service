@@ -12,6 +12,8 @@ class Genre(CreatedAndIdMixing):
     name = models.CharField(_('Genres name'), max_length=MAX_LENGTH_IN_STRING, null=False)
     description = models.TextField(_('Description genre'), blank=True)
 
+    objects = models.Manager()
+
     class Meta:  # noqa: D106, WPS306
         db_table = 'content\".\"genre'
         verbose_name = _('Genre')

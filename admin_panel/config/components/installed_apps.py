@@ -13,4 +13,8 @@ MY_APPS = [
     'api.apps.ApiConfig',
 ]
 
-INSTALLED_APPS = BASED_APPS + MY_APPS
+DOWNLOAD_APPS = [
+    'debug_toolbar',
+]
+
+INSTALLED_APPS = BASED_APPS + MY_APPS + DOWNLOAD_APPS

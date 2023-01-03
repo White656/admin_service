@@ -1,5 +1,6 @@
 """Custom admin panels from admin panel service."""
 
+from api.core.admin.base import AdminPanelMixing
 from api.models.movies.filmwork import FilmWork, GenreFilmWork
 from api.models.movies.genres import Genre
 from api.models.movies.person import Person, PersonFilmWork
@@ -19,22 +20,26 @@ class PersonFilmWorkInline(admin.TabularInline):
 
 
 @admin.register(Genre)
-class GenreAdmin(admin.ModelAdmin):
+class GenreAdmin(AdminPanelMixing):
     """Class from Genre element in admin panel from this application."""
+
+    list_display = ('name', 'created', 'modified')
+    search_fields = ('name',)
 
 
 @admin.register(FilmWork)
-class FilmWorkAdmin(admin.ModelAdmin):
+class FilmWorkAdmin(AdminPanelMixing):
     """Class from FilmWork element in admin panel from this application."""
 
     inlines = (GenreFilmWorkInline, PersonFilmWorkInline)
+    list_display = ('title', 'type', 'rating', 'creation_date')
 
 
 @admin.register(Person)
-class PersonAdmin(admin.ModelAdmin):
+class PersonAdmin(AdminPanelMixing):
     """Class from Person element in admin panel from this application."""
 
 
 @admin.register(GenreFilmWork)
-class GenreFilmWorkAdmin(admin.ModelAdmin):
+class GenreFilmWorkAdmin(AdminPanelMixing):
     """Class from Genre film work element in admin panel from this application."""
