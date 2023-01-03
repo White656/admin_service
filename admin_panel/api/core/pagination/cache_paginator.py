@@ -3,7 +3,6 @@
 from config.components.cache import CACHE_TIMEOUT
 from django.core.cache import cache
 from django.core.paginator import Paginator
-
 from django.utils.functional import cached_property
 
 POSTFIX_CACHE_KEY = '_count'

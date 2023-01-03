@@ -12,7 +12,7 @@ CACHE_CONFIG = {
         'OPTIONS': {
             'parser_class': 'redis.connection.PythonParser',
             'pool_class': 'redis.BlockingConnectionPool',
-        }
+        },
     },
 }
 
