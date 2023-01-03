@@ -1,12 +1,17 @@
 """Constants in django admin panel service."""
 
-ROOT_URLCONF = 'config.urls'
+import os
 
-WSGI_APPLICATION = 'config.wsgi.application'
+SECRET_KEY = os.getenv('SECRET_KEY')  # secret key from this application
+DEBUG = os.environ.get('DEBUG', False) == 'True'  # debug mode in application
 
-LANGUAGE_CODE = 'ru-RU'
+ROOT_URLCONF = 'config.urls'  # root url configuration path
 
-TIME_ZONE = 'UTC'
+WSGI_APPLICATION = 'config.wsgi.application'  # wsgi application path
+
+LANGUAGE_CODE = 'ru-RU'  # language project
+
+TIME_ZONE = 'UTC'  # time zone
 
 USE_I18N = True
 

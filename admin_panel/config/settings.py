@@ -1,6 +1,5 @@
 """Base setting admin panel application."""
 
-import os
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -19,9 +18,6 @@ include(
 )
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
-
-SECRET_KEY = os.getenv('SECRET_KEY')
-DEBUG = os.environ.get('DEBUG', False) == 'True'
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']  # noqa: WPS407
 
