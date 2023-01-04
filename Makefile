@@ -16,3 +16,7 @@ isort-src:
 	isort .
 auto-pep:
 	autopep8 --in-place --recursive ./example_usage
+make-message:
+	python admin_panel/manage.py makemessages -l en -l ru
+compile-message:
+	python admin_panel/manage.py compilemessages -l en -l ru

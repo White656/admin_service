@@ -1,7 +1,8 @@
 """Film-work ORM model."""
 
 from api.core.model.mixing import CreatedAndIdMixing, IdMixing
-from config.components.constants import MAX_CHOICES_LENGTH
+from config.components.constants import (MAX_CHOICES_LENGTH,
+                                         MAX_LENGTH_IN_STRING)
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -22,6 +23,7 @@ class FilmWork(CreatedAndIdMixing):
     creation_date = models.DateTimeField(_('Creation film work date'), editable=False, auto_now_add=True)
     type = models.CharField(_('Film work type'), max_length=MAX_CHOICES_LENGTH, choices=FilmWorkTypeChoices.choices)
     rating = models.FloatField(_('Film work rating'), validators=[MinValueValidator(0), MaxValueValidator(100)])
+    certificate = models.CharField(_('certificate'), max_length=MAX_LENGTH_IN_STRING, blank=True)
     genres = models.ManyToManyField('Genre', through='GenreFilmWork')
     persons = models.ManyToManyField('Person', through='PersonFilmWork')
 

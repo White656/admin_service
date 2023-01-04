@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-04 15:56+0000\n"
+"POT-Creation-Date: 2023-01-04 21:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,15 +46,19 @@ msgstr "Film work type"
 msgid "Film work rating"
 msgstr "Film work rating"
 
-#: api/models/movies/filmwork.py:30
+#: api/models/movies/filmwork.py:25
+msgid "certificate"
+msgstr "certificate"
+
+#: api/models/movies/filmwork.py:31
 msgid "Film work"
 msgstr "Film work"
 
-#: api/models/movies/filmwork.py:31
+#: api/models/movies/filmwork.py:32
 msgid "Film works"
 msgstr "Film works"
 
-#: api/models/movies/filmwork.py:42
+#: api/models/movies/filmwork.py:43
 msgid "Created genre film work"
 msgstr "Created genre film work"
 

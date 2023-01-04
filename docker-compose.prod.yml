@@ -11,8 +11,6 @@ services:
       - .env
     volumes:
       - $HOME/postgresql/data:/var/lib/postgresql/data
-    ports:
-      - '5432:5432'
 
   redis_movies_admin_panel:
     container_name: 'redis_movies_admin_panel'
@@ -20,9 +18,6 @@ services:
     restart: always
     env_file:
       - .env
-    ports:
-      - '${REDIS_PORT}:${REDIS_PORT}'
-
 
   central_admin_panel_service:
     container_name: 'central_admin_panel_service'
