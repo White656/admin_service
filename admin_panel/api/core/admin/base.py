@@ -13,3 +13,13 @@ class AdminPanelMixing(admin.ModelAdmin):
     paginator = CachePaginator
 
     show_full_result_count = False
+
+
+class InlineAdminMixing(admin.TabularInline):
+    """Inline admin mixing with optimized data acquisition."""
+
+    list_prefetch_related = ()
+
+    def get_queryset(self, request):
+        """Function from custom get query set from django admin panel."""
+        return super().get_queryset(request).prefetch_related(*self.list_prefetch_related)

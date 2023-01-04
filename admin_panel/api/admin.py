@@ -1,13 +1,13 @@
 """Custom admin panels from admin panel service."""
 
-from api.core.admin.base import AdminPanelMixing
+from api.core.admin.base import AdminPanelMixing, InlineAdminMixing
 from api.models.movies.filmwork import FilmWork, GenreFilmWork
 from api.models.movies.genres import Genre
 from api.models.movies.person import Person, PersonFilmWork
 from django.contrib import admin
 
 
-class GenreFilmWorkInline(admin.TabularInline):
+class GenreFilmWorkInline(InlineAdminMixing):
     """Class from adaptive UI in admin panel."""
 
     model = GenreFilmWork
@@ -15,7 +15,7 @@ class GenreFilmWorkInline(admin.TabularInline):
     autocomplete_fields = ('genre', 'film_work')
 
 
-class PersonFilmWorkInline(admin.TabularInline):
+class PersonFilmWorkInline(InlineAdminMixing):
     """Class from adaptive UI in admin panel."""
 
     model = PersonFilmWork
