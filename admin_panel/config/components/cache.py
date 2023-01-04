@@ -3,7 +3,7 @@ import os
 
 from config.components.constants import DEBUG
 
-CACHE_TIMEOUT = 3600
+CACHE_TIMEOUT = 36000
 
 CACHE_CONFIG = {
     'default': {
