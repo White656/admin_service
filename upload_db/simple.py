@@ -40,22 +40,23 @@ def generate_date_from_person_film_fork_table() -> list[tuple]:
     return data_from_upload
 
 
-fake = Faker()
+if __name__ == '__main__':
+    fake = Faker()
 
-database_dns = config.database.json()
+    database_dns = config.database.json()
 
-PERSONS_COUNT = config.persons_count
-PAGE_SIZE = config.page_size
+    PERSONS_COUNT = config.persons_count
+    PAGE_SIZE = config.page_size
 
-uploader = PostgresUploader(dns=config.database)
-conn = uploader.get_connection
+    uploader = PostgresUploader(dns=config.database)
+    conn = uploader.get_connection
 
-generated_date, persons_ids = generate_data_from_person_table()
+    generated_date, persons_ids = generate_data_from_person_table()
 
-query = get_query_from_file(variant=variants.into_person)
-uploader.upload(query, generated_date, PAGE_SIZE)
+    query = get_query_from_file(variant=variants.into_person)
+    uploader.upload(query, generated_date, PAGE_SIZE)
 
-person_film_work_data = generate_date_from_person_film_fork_table()
+    person_film_work_data = generate_date_from_person_film_fork_table()
 
-query = get_query_from_file(variant=variants.into_person_film_work)
-uploader.upload(query, person_film_work_data, PAGE_SIZE)
+    query = get_query_from_file(variant=variants.into_person_film_work)
+    uploader.upload(query, person_film_work_data, PAGE_SIZE)

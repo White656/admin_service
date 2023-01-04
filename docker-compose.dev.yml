@@ -1,33 +1,43 @@
-version: "3.9"
+version: '3.9'
 
 
 services:
 
   pg_movies_admin_panel:
-    container_name: "pg_movies_admin_panel"
-    image: "postgres:${POSTGRES_VERSION}"
+    container_name: 'pg_movies_admin_panel'
+    image: 'postgres:${POSTGRES_VERSION}'
     restart: always
     env_file:
       - .env
     volumes:
       - $HOME/postgresql/data:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - '5432:5432'
 
   redis_movies_admin_panel:
-    container_name: "redis_movies_admin_panel"
-    image: "redis:${REDIS_VERSION}"
+    container_name: 'redis_movies_admin_panel'
+    image: 'redis:${REDIS_VERSION}'
     restart: always
     env_file:
       - .env
     ports:
-      - "${REDIS_PORT}:${REDIS_PORT}"
+      - '${REDIS_PORT}:${REDIS_PORT}'
 
 
-#  admin_service_vault:
-#    image: "vault:latest"
-#    restart: always
-#    env_file:
-#      - .env
-#    ports:
-#      - "8200:8200"
+  central_admin_panel_service:
+    container_name: 'central_admin_panel_service'
+    build:
+      dockerfile: Dockerfile
+      context: admin_panel
+    restart: always
+    env_file:
+      - .env
+
+    depends_on:
+      - redis_movies_admin_panel
+      - pg_movies_admin_panel
+
+    links:
+      - redis_movies_admin_panel
+      - pg_movies_admin_panel
+
