@@ -24,3 +24,4 @@ STATIC_URL = 'static/'
 MAX_LENGTH_IN_STRING = 256
 MAX_CHOICES_LENGTH = 3
 LIST_PER_PAGE = 25  # from admin panel
+UPLOAD_FILM_WORK_FILE_PATH = 'movies/'  # from upload film work files

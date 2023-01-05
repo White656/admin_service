@@ -14,10 +14,10 @@ class IdMixing(models.Model):
 
 
 class CreatedMixing(models.Model):
-    """Custom created/updated model from django ORM."""
+    """Custom created/updated models from django ORM."""
 
-    created = models.DateTimeField(editable=False, auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(editable=False, auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:  # noqa: D106, WPS306
         abstract = True

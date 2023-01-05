@@ -1,4 +1,4 @@
-"""Genres ORM model."""
+"""Genres ORM models."""
 
 from api.core.model.mixing import CreatedAndIdMixing
 from config.components.constants import MAX_LENGTH_IN_STRING
@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Genre(CreatedAndIdMixing):
-    """Genres model from django ORM."""
+    """Genres models from django ORM."""
 
     name = models.CharField(_('Genres name'), max_length=MAX_LENGTH_IN_STRING, null=False)
     description = models.TextField(_('Description genre'), blank=True)

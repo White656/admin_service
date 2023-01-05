@@ -1,4 +1,4 @@
-"""Person ORM model."""
+"""Person ORM models."""
 
 from api.core.model.mixing import CreatedAndIdMixing, IdMixing
 from config.components.constants import (MAX_CHOICES_LENGTH,
@@ -16,7 +16,7 @@ class PersonTypeChoices(models.TextChoices):
 
 
 class Person(CreatedAndIdMixing):
-    """Person model from django ORM."""
+    """Person models from django ORM."""
 
     full_name = models.CharField(_('Person full name'), max_length=MAX_LENGTH_IN_STRING, blank=False)
 
@@ -35,7 +35,7 @@ class PersonFilmWork(IdMixing):
     film_work = models.ForeignKey('FilmWork', on_delete=models.CASCADE)
     person = models.ForeignKey('Person', on_delete=models.CASCADE)
     role = models.CharField(_('Person role'), choices=PersonTypeChoices.choices, max_length=MAX_CHOICES_LENGTH)
-    created = models.DateTimeField(_('Created person film work connection'), auto_now_add=True, editable=False)
+    created_at = models.DateTimeField(_('Created person film work connection'), auto_now_add=True, editable=False)
 
     class Meta:  # noqa: D106, WPS306
         db_table = 'content\".\"person_film_work'
