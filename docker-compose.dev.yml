@@ -12,7 +12,7 @@ services:
     volumes:
       - $HOME/postgresql/data:/var/lib/postgresql/data
     ports:
-      - '5432:5432'
+      - '${POSTGRES_DB_PORT}:${POSTGRES_DB_PORT}'
 
   redis_movies_admin_panel:
     container_name: 'redis_movies_admin_panel'
@@ -32,11 +32,11 @@ services:
     restart: always
     env_file:
       - .env
-
-    depends_on:
-      - redis_movies_admin_panel
-      - pg_movies_admin_panel
-
+    volumes:
+      - ./admin_panel:/usr/src/app
     links:
-      - redis_movies_admin_panel
       - pg_movies_admin_panel
+      - redis_movies_admin_panel
+
+    ports:
+      - '${APPLICATION_PORT}:${APPLICATION_PORT}'
