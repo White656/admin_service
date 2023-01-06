@@ -9,6 +9,8 @@ from typing import Any
 class IdMixing(object):
     """Class from IdMixing in models for db ETL process."""
 
+    __slots__ = ()
+
     id: uuid.UUID
 
 
@@ -16,16 +18,20 @@ class IdMixing(object):
 class CreateMixing(object):
     """Class from CreateMixing in models for db ETL process."""
 
-    created_at: Any | datetime.datetime
+    __slots__ = ()
+    created_at: Any | datetime.date
 
 
 @dataclass
 class UpdateMixing(object):
     """Class from UpdateMixing in models for db ETL process."""
 
-    updated_at: Any | datetime.datetime
+    __slots__ = ()
+    updated_at: Any | datetime.date
 
 
 @dataclass
 class CreateAndUpdateMixing(CreateMixing, UpdateMixing):
     """Create and update Mixing for db ETL process."""
+
+    __slots__ = ()
