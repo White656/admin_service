@@ -3,7 +3,7 @@
 import datetime
 from dataclasses import dataclass
 
-from base import CreateAndUpdateMixing, IdMixing
+from etl.models.base import CreateAndUpdateMixing, IdMixing
 
 
 @dataclass
@@ -15,7 +15,7 @@ class FilmWork(IdMixing, CreateAndUpdateMixing):
     )
     title: str
     description: str
-    creation_date: str | datetime.date
+    creation_date: str | datetime.datetime
     type: str
     rating: float | int
     file_path: str

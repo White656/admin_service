@@ -19,7 +19,7 @@ class CreateMixing(object):
     """Class from CreateMixing in models for db ETL process."""
 
     __slots__ = ()
-    created_at: Any | datetime.date
+    created_at: Any | datetime.datetime
 
 
 @dataclass
@@ -27,7 +27,7 @@ class UpdateMixing(object):
     """Class from UpdateMixing in models for db ETL process."""
 
     __slots__ = ()
-    updated_at: Any | datetime.date
+    updated_at: Any | datetime.datetime
 
 
 @dataclass
