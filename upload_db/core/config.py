@@ -13,7 +13,7 @@ class DatabaseConfig(BaseSettings):
     password: str = Field('123qwe', description='database password.')
     host: str = Field('localhost', description='database host usage.')
     port: int = Field(5432, description='database port.')  # noqa: WPS432
-    options: str = Field('-c search_path=content', description='custom options in dsn.')
+    options: str = Field('-c search_path=content', description='custom options for dsn.')
 
 
 class ApplicationConfig(BaseSettings):
