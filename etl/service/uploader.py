@@ -45,10 +45,20 @@ class SQLiteUploader(BaseUploaderDatabase):
         """Property for get private variable connection."""
         return self.__connection
 
-    def _get_generator(self, model: type[IdMixing], query: str, iter_size: int) -> Iterator[list]:
-        """Get generator date for upload data."""
+    def _get_generator(self, model: type[IdMixing], query: str, iter_size: int) -> Iterator[dict]:
+        """
+        Get generator date for upload data.
 
-    def extract_data(self, table: str, query: str, iter_size: int) -> Iterator[list]:
+        Yields:
+            dataclass objects list for load into database.
+        """
+        cursor = self.__connection.cursor()
+        cursor.execute(query)
+        data: list[list] = cursor.fetchall()
+        for item in data:  # noqa: WPS526
+            yield model(*item)
+
+    def extract_data(self, table: str, query: str, iter_size: int) -> Iterator[dict]:
         """Extract data for sqlite database. Getting model and dataclass or raise Exception."""
         model = model_mapper.get(table, None)
 
