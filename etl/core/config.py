@@ -1,7 +1,6 @@
 """Configuration file from ETL script."""
 
 import logging
-from os import path
 
 from dotenv import load_dotenv
 from pydantic import BaseSettings, Field, PostgresDsn, validator
@@ -16,6 +15,7 @@ class ApplicationConfig(BaseSettings):
 
     sqlite_path: str = Field('db.sqlite', description='Path to .sqlite database from upload data.')
     postgres_dns: PostgresDsn
+    query_file_name: str = Field('query.json', description='Path to .json file for get sql query.')
 
     class Config:  # noqa:D106, WPS306
         env_prefix = 'etl_'
@@ -28,16 +28,23 @@ class ApplicationConfig(BaseSettings):
         Function for validation sqlite path variable in class.
 
         Raises:
-            - FileNotFoundError: if file is not found or incorrect path to file.
             - FileExtensionError: If file extension is not valid.
         """
-        is_path = path.exists(value)
-
-        if not is_path:
-            raise FileNotFoundError('This file is not found or incorrect path to file!')
-
         if not value.endswith('.sqlite'):
             raise FileExtensionError('This file extension is not valid!')
+
+        return value
+
+    @validator('query_file_name')
+    def validate_query(cls, value: str):  # noqa: N805
+        """
+        Function fof validation json path variable in class.
+
+        Raises:
+             - FileExtensionError: if file extension is not valid.
+        """
+        if not value.endswith('.json'):
+            raise FileExtensionError('This file extension is not valid! Recommend usage .json file.')
 
         return value
 
