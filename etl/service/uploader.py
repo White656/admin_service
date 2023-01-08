@@ -1,6 +1,7 @@
 """Class for upload database data."""
 
 import sqlite3
+from dataclasses import astuple
 from typing import Iterator
 
 from etl.core.database import BaseUploaderDatabase
@@ -14,7 +15,7 @@ class SQLiteUploader(BaseUploaderDatabase):
 
     __slots__ = ('__dns', '__connection')
 
-    def __init__(self, file_path: str, connection: sqlite3.Connection = None):
+    def __init__(self, connection: sqlite3.Connection, file_path: str = None):
         """
         Initial function in SQLiteUploader.
 
@@ -45,7 +46,7 @@ class SQLiteUploader(BaseUploaderDatabase):
         """Property for get private variable connection."""
         return self.__connection
 
-    def _get_generator(self, model: type[IdMixing], query: str, iter_size: int) -> Iterator[dict]:
+    def _get_generator(self, model: type[IdMixing], query: str) -> Iterator[type[IdMixing]]:
         """
         Get generator date for upload data.
 
@@ -56,13 +57,13 @@ class SQLiteUploader(BaseUploaderDatabase):
         cursor.execute(query)
         data: list[list] = cursor.fetchall()
         for item in data:  # noqa: WPS526
-            yield model(*item)
+            yield astuple(model(**item))
 
-    def extract_data(self, table: str, query: str, iter_size: int) -> Iterator[dict]:
+    def extract_data(self, table: str, query: str) -> Iterator[type[IdMixing]]:
         """Extract data for sqlite database. Getting model and dataclass or raise Exception."""
         model = model_mapper.get(table, None)
 
         if not model:
             raise TableIsNotFoundError('This table in not found in database.')
 
-        return self._get_generator(model, query, iter_size)
+        return self._get_generator(model, query), model

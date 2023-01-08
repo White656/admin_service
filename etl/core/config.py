@@ -9,13 +9,16 @@ from etl.core.errors import FileExtensionError
 
 load_dotenv()
 
+DEFAULT_UPLOAD_NUMBER = 20
+
 
 class ApplicationConfig(BaseSettings):
     """Base application settings from ETL."""
 
     sqlite_path: str = Field('db.sqlite', description='Path to .sqlite database from upload data.')
     postgres_dns: PostgresDsn
-    query_file_name: str = Field('query.json', description='Path to .json file for get sql query.')
+    query_file_name: str = Field('utils/query.json', description='Path to .json file for get sql query.')
+    number_to_upload: int = Field(DEFAULT_UPLOAD_NUMBER, description='Upload data for database.')
 
     class Config:  # noqa:D106, WPS306
         env_prefix = 'etl_'

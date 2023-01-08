@@ -23,8 +23,3 @@ class BaseLoaderDatabase(ABC):
     def upload(self, *args, **kwargs):
         """Base upload to database function."""
         raise NotImplementedError
-
-    @abstractmethod
-    def _generate_query(self, *args, **kwargs):
-        """Base generate query function."""
-        raise NotImplementedError

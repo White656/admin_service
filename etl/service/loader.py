@@ -2,18 +2,19 @@
 from typing import Iterator
 
 import psycopg2
+from psycopg2.extensions import connection
 from pydantic import PostgresDsn
 
 from etl.core.database import BaseLoaderDatabase
 from etl.models.base import IdMixing
 
 
-class PostgresLoader(BaseLoaderDatabase):
+class PostgresSaver(BaseLoaderDatabase):
     """Class to load data in postgres sql database."""
 
     __slots__ = ('_connection', '_dns')
 
-    def __init__(self, conn: psycopg2.connection, dns: PostgresDsn) -> None:
+    def __init__(self, conn: connection, dns: PostgresDsn = None) -> None:
         """
         Initial function to PostgresLoader class.
 
@@ -23,7 +24,7 @@ class PostgresLoader(BaseLoaderDatabase):
         self._connection = conn
         self._dns = dns
 
-    def _create_connection(self) -> psycopg2.connection:
+    def _create_connection(self) -> connection:
         """
         Function for create new connection for database. Closed all old connection before create new.
 
@@ -35,7 +36,7 @@ class PostgresLoader(BaseLoaderDatabase):
         return psycopg2.connect(dns=self._dns)
 
     @property
-    def get_connection(self) -> psycopg2.connection:  # noqa:WPS615
+    def get_connection(self) -> connection:  # noqa:WPS615
         """
         Property for get connection to postgres.
 
@@ -45,8 +46,25 @@ class PostgresLoader(BaseLoaderDatabase):
             return self._create_connection()
         return self._connection
 
-    def upload(self, *args, **kwargs):
-        """Function for bulk upload data in database."""
+    @classmethod
+    def _generate_query(
+            cls, query: str, data: Iterator[type[IdMixing]], model: type[IdMixing], table: str,
+    ) -> str | bool:
+        """Function from generated query to insert into database."""
+        *res, = data  # noqa: WPS460, WPS356 TODO fix list view and update for load in database.
 
-    def _generate_query(self, query: str, data: Iterator[type[IdMixing]]):
-        """Generated query for upload data in database."""
+        if not data:
+            return False
+
+        return query.format(table=table, column=str(model.__slots__).replace("'", '"'), values=res)
+
+    def upload(self, query: str, data: Iterator[type[IdMixing]], model: type[IdMixing], table: str) -> None:
+        """Function for bulk upload data in database."""
+        query = self._generate_query(query, data, model, table)  # TODO fix query
+
+        if not query:
+            return
+
+        cursor = self._connection.cursor()
+        cursor.execute(query)
+        self._connection.commit()

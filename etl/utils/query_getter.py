@@ -1,8 +1,6 @@
 """Tools for getting sql query to upload data into database."""
-import json
-from enum import Enum
 
-from etl.core.config import settings
+from enum import Enum
 
 
 class TablesDatabase(str, Enum):
@@ -21,8 +19,6 @@ class TablesDatabase(str, Enum):
 
 tables = TablesDatabase
 
-
-def getter_query(table: TablesDatabase) -> str | None:
-    """Function for get query from sql query json file."""
-    with open(settings.query_file_name, 'r', encoding='utf-8') as query_file:
-        return json.load(query_file).get(table)
+get_count = """SELECT COUNT(*) FROM {table}"""  # noqa: WPS322
+get_limited = """SELECT * FROM {table} LIMIT {start}, {end}"""  # noqa: WPS322
+insert = """INSERT INTO {table} {column} VALUES {values} ON CONFLICT (id) DO NOTHING;"""  # noqa: WPS322
