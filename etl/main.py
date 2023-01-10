@@ -32,6 +32,7 @@ def load_from_sqlite(connection: sqlite3.Connection, pg_conn: _connection, table
 
 
 postgres_dns = settings.postgres_dns
+
 if __name__ == '__main__':
 
     with connect(postgres_dns, ) as conn, conn.cursor() as cursor, conn_context(settings.sqlite_path) as sqlite_conn:

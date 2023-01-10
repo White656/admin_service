@@ -2,7 +2,7 @@
 
 import datetime
 import uuid
-from dataclasses import dataclass, fields
+from dataclasses import dataclass
 
 
 @dataclass
@@ -10,13 +10,6 @@ class IdMixing(object):
     """Class from IdMixing in models for db ETL process."""
 
     id: uuid.UUID
-
-    def __post_init__(self):
-        # Loop through the fields
-        for field in fields(self):
-            # If there is a default and the value of the field is none we can assign a value
-            if getattr(self, field.name) is None:
-                setattr(self, field.name, str(datetime.datetime.now()))
 
 
 @dataclass

@@ -9,7 +9,7 @@ from etl.core.errors import FileExtensionError
 
 load_dotenv()
 
-DEFAULT_UPLOAD_NUMBER = 20
+DEFAULT_UPLOAD_NUMBER = 100
 
 
 class ApplicationConfig(BaseSettings):

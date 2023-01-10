@@ -3,6 +3,7 @@ from typing import Iterator
 
 import psycopg2
 from psycopg2.extensions import connection
+from psycopg2.extras import execute_values
 from pydantic import PostgresDsn
 
 from etl.core.database import BaseLoaderDatabase
@@ -48,23 +49,21 @@ class PostgresSaver(BaseLoaderDatabase):
 
     @classmethod
     def _generate_query(
-            cls, query: str, data: Iterator[type[IdMixing]], model: type[IdMixing], table: str,
+            cls, query: str, model: type[IdMixing], table: str,
     ) -> str | bool:
         """Function from generated query to insert into database."""
-        *res, = data  # noqa: WPS460, WPS356 TODO fix list view and update for load in database.
-
-        if not data:
-            return False
-
-        return query.format(table=table, column=str(model.__slots__).replace("'", '"'), values=res)
+        return query.format(table=table, column=str(model.__slots__).replace("'", '"'))
 
     def upload(self, query: str, data: Iterator[type[IdMixing]], model: type[IdMixing], table: str) -> None:
         """Function for bulk upload data in database."""
-        query = self._generate_query(query, data, model, table)  # TODO fix query
+        query = self._generate_query(query, model, table)
 
-        if not query:
+        res = list(data)
+
+        if not res:
             return
 
         cursor = self._connection.cursor()
-        cursor.execute(query)
+
+        execute_values(cursor, query, res)
         self._connection.commit()

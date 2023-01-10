@@ -21,7 +21,9 @@ class FilmWork(CreatedAndIdMixing):
 
     title = models.TextField(_('Title film work'), null=False)
     description = models.TextField(_('Description film work'), blank=True)
-    creation_date = models.DateTimeField(_('Creation film work date'), editable=False, auto_now_add=True)
+    creation_date = models.DateTimeField(
+        _('Creation film work date'), editable=False, auto_now_add=True, null=True, blank=True,
+    )
     type = models.CharField(_('Film work type'), max_length=MAX_CHOICES_LENGTH, choices=FilmWorkTypeChoices.choices)
     rating = models.FloatField(_('Film work rating'), validators=[MinValueValidator(0), MaxValueValidator(100)])
     file_path = models.FileField(

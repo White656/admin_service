@@ -12,7 +12,7 @@ class BaseUploaderDatabase(ABC):
 
     @abstractmethod
     def extract_data(self, *args, **kwargs):
-        """Extract data function."""  # TODO write commentaries to function
+        """Extract data function."""
         raise NotImplementedError
 
 
