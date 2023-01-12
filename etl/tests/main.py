@@ -32,4 +32,3 @@ if __name__ == '__main__':
 
         for table in tables:
             test_database(sqlite_conn, conn, table)
-            break
