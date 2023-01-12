@@ -12,7 +12,7 @@ class ApplicationSetting(BaseSettings):
     """Class for application setting for etl script."""
 
     postgres_dns: PostgresDsn
-    sqlite_path: str = Field('../../db.sqlite', description='path to db.sqlite file')
+    sqlite_path: str = Field('../db.sqlite', description='path to db.sqlite file')
 
     class Config:  # noqa: D106, WPS306
         env_prefix = 'tests_'

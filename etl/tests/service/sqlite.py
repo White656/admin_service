@@ -18,8 +18,10 @@ class SQLiteUploader(DatabaseUploader):
         """
         self._connect = connection
 
-    def upload(self, query: str, **kwargs):
+    def upload(self, query: str, is_one: bool = True, **kwargs):
         """Function for upload database."""
         __cur = self._connect.cursor()
         __cur.execute(query)
+        if is_one:
+            return __cur.fetchone()
         return __cur.fetchall()

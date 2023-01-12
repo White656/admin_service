@@ -1,7 +1,8 @@
 """File for upload data for postgres database."""
 
-from base import DatabaseUploader
 from psycopg2.extensions import connection as _connection
+from psycopg2.extras import DictCursor
+from service.base import DatabaseUploader
 
 
 class PostgresUploader(DatabaseUploader):
@@ -17,8 +18,15 @@ class PostgresUploader(DatabaseUploader):
         """
         self._connection: connection = connection
 
-    def upload(self, query: str, **kwargs):
+    @property
+    def get_cursor(self):
+        """Method for get database cursor (usage custom cursor factory)."""
+        return self._connection.cursor(cursor_factory=DictCursor)
+
+    def upload(self, query: str, is_one: bool = False, **kwargs):
         """Function for upload data from postgres sql database."""
-        __cur = self._connection.cursor()
+        __cur = self.get_cursor
         __cur.execute(query)
+        if is_one:
+            return __cur.fetchone()
         return __cur.fetchall()
